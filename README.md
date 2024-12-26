@@ -1,2 +1,2 @@
 # microblogging-app
-Y - a microblogging socoal media app
+Y - a microblogging social media app
