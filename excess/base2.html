@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    {% if title %}
+    <title>{{ title }} - Microblog</title>
+    {% else %}
+    <title>Welcome to Microblog</title>
+    {% endif %}
+</head>
+
+<body>
+    <!-- links to all pages -->
+    <!-- url_for() function returns the URL associated 
+    with the function which is passed as the argument e.g login returns /login-->
+    <div>
+        Microblog:
+        <a href="{{ url_for('explore') }}">Explore</a>
+        <a href="{{url_for('index')}}">Home</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{url_for('login')}}">Login</a>
+        {% else %}
+        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+        <a href="{{url_for('logout')}}">Logout</a>
+        {% endif %}
+    </div>
+
+    <!-- flash messages are handled here -->
+    <!-- get_flashed_messages() function comes from Flask, 
+    and returns a list of all the messages that have been registered with
+    flash() previously. -->
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li> {{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <!-- stuff within the block will come from the file which inherits/extends this base file -->
+    <!-- name of the block which will come here is called 'content' -->
+    {% block content %}{% endblock %}
+</body>
+
+
+</html>
